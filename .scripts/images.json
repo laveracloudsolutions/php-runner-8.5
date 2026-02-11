@@ -1,0 +1,10 @@
+{
+  "images": [
+    {
+      "folder": ".",
+      "image_tag": "php-runner:8.5-apache",
+      "image_additionnal_tag": "php-runner:8.5-01",
+      "platforms": "linux/amd64,linux/arm64/v8"
+    }
+  ]
+}
