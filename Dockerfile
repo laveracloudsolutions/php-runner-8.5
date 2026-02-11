@@ -4,46 +4,44 @@ FROM ghcr.io/laveracloudsolutions/php:8.5-apache
 # Installation des dépendances
 RUN apt-get update -qq && \
     apt-get upgrade -y && \
-    apt-get install -qy \
-    apache2=2.4.* \
-    ca-certificates=* \
-    curl=7.* \
-    dnsutils=1:9.* \
-    expat=2.* \
-    fontconfig=2.* \
-    git=1:2.39.* \
-    gnupg=2.* \
-    gnutls-bin=3.* \
-    iputils-ping=3:* \
-    libapache2-mod-security2=2.* \
-    libc6=2.* \
-    libfreetype6-dev=2.* \
-    libfreetype6=2.* \
-    libgrpc++-dev=1.* \
-    libicu-dev=72.* \
-    libjpeg62-turbo-dev=1:2.* \
-    libjpeg62-turbo=1:2.* \
-    libpng-dev=1.6.* \
-    libpng16-16=1.* \
-    libpq-dev=15.* \
-    libsqlite3-0=3.* \
-    libxml2-dev=2.* \
-    libxrender1=1:0* \
-    libzip-dev=1.* \
-    linux-libc-dev=6.* \
-    net-tools=2.* \
-    perl=5.* \
-    xz-utils=5.* \
-    unzip=6.* \
-    vim=2:9.* \
-    xfonts-75dpi=1:1.* \
-    xfonts-base=1:1.* \
-    xvfb=2:21.* \
-    zip=3.* \
-    zlib1g-dev=1:1.*
-
-# Clean
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get install -y \
+        apache2 \
+        ca-certificates \
+        curl \
+        dnsutils \
+        expat \
+        fontconfig \
+        git \
+        gnupg \
+        gnutls-bin \
+        iputils-ping \
+        libapache2-mod-security2 \
+        libc6 \
+        libfreetype6-dev \
+        libfreetype6 \
+        libgrpc++-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libjpeg62-turbo \
+        libpng-dev \
+        libpng16-16 \
+        libpq-dev \
+        libsqlite3-0 \
+        libxml2-dev \
+        libxrender1 \
+        libzip-dev \
+        linux-libc-dev \
+        net-tools \
+        perl \
+        xz-utils \
+        unzip \
+        vim \
+        xfonts-75dpi \
+        xfonts-base \
+        xvfb \
+        zip \
+        zlib1g-dev && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # PHP Extensions
 RUN docker-php-ext-configure zip && \
@@ -56,7 +54,7 @@ RUN pecl install opentelemetry protobuf
 RUN docker-php-ext-enable opentelemetry protobuf
 
 # Install GRPC (pour OpenTeletry) > PECL installation is far too long, so install manually (@see https://stackoverflow.com/a/78683184)
-RUN git clone --depth 1 -b v1.63.x https://github.com/grpc/grpc /tmp/grpc \
+RUN git clone --depth 1 -b v1.64.x https://github.com/grpc/grpc /tmp/grpc \
     && cd /tmp/grpc/src/php/ext/grpc \
     && phpize && ./configure && make && make install \
     && rm -rf /tmp/grpc
