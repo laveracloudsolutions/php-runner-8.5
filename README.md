@@ -8,8 +8,8 @@ PHP Runner (php, Apache, OpenTelemetry, etc)
 
 ```bash
 # Tagguer l'image
-docker build -t ghcr.io/laveracloudsolutions/php-runner:8.5-apache .
-docker push ghcr.io/laveracloudsolutions/php-runner:8.5-apache
+docker build -t ghcr.io/laveracloudsolutions/php-runner:8.5-apache-trixie .
+docker push ghcr.io/laveracloudsolutions/php-runner:8.5-apache-trixie
 ```
 
 ## Docker Image | GHCR.IO | Github Action
