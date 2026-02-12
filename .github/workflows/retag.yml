@@ -1,0 +1,18 @@
+# This is workflow to retag docker image
+name: Retag
+
+# Controls when the workflow will run
+on:
+  # Shedule 1 fois par semaine
+  schedule:
+    - cron: "0 18 * * 0"
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  retag:
+    uses: laveracloudsolutions/github-pipeline-library/.github/workflows/retag.yml@main
+    with:
+      source-image: ghcr.io/laveracloudsolutions/php-runner:8.5-apache-trixie
+      version-cmd: php -r "echo PHP_VERSION;"
+    secrets: inherit
