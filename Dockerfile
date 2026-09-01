@@ -49,8 +49,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j"$(nproc)" intl pgsql pdo pdo_pgsql zip gd
 
 # 2. Extensions PECL légères
-RUN pecl install redis protobuf && \
-    docker-php-ext-enable redis protobuf
+RUN pecl install redis opentelemetry protobuf && \
+    docker-php-ext-enable redis opentelemetry protobuf
 
 # 3. Build RAPIDE de gRPC v1.78.x (Correction des chemins d'inclusion)
 RUN git clone --depth 1 -b v1.78.x https://github.com/grpc/grpc /tmp/grpc && \
