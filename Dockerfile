@@ -49,8 +49,10 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j"$(nproc)" intl pgsql pdo pdo_pgsql zip gd
 
 # 2. Extensions PECL légères
-RUN pecl install redis opentelemetry protobuf && \
-    docker-php-ext-enable redis opentelemetry protobuf
+# NOTE: ext-protobuf volontairement exclu - provoque un SIGSEGV lors de l'export OTLP (grpc et http) dès qu'il y a des spans réels à encoder.
+# google/protobuf et grpc/grpc (composer) retombent sur leur implémentation pure PHP en son absence, ce n'est qu'une optimisation de perf.
+RUN pecl install redis opentelemetry && \
+    docker-php-ext-enable redis opentelemetry
 
 # 3. Build RAPIDE de gRPC v1.78.x (Correction des chemins d'inclusion)
 RUN git clone --depth 1 -b v1.78.x https://github.com/grpc/grpc /tmp/grpc && \
